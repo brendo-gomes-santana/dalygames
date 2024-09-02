@@ -4,10 +4,15 @@ import { BiRightArrowCircle } from 'react-icons/bi';
 import { GameProps } from '@/utils/types/game';
 
 interface GameCardProps {
-    data: GameProps
+    data: GameProps | null
 }
 
 export default function GameCard({ data }: GameCardProps) {
+    
+    if(!data){
+        return
+    }
+
     return (
         <Link href={`/game/${data.id}`}>
             <section className='w-full bg-slate-200 rounded-lg p-4 mb-5'>
