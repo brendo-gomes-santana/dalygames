@@ -7,6 +7,7 @@ import Input from "@/components/input";
 import Container from "@/components/container";
 import { GameProps } from "@/utils/types/game";
 import GameCard from "@/components/gameCard";
+
 async function getDalyGame() {
   try {
     const response = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game_day`, { next: { revalidate: 320 } });
@@ -20,21 +21,21 @@ async function getDalyGame() {
 
 async function getGamaData(){
   try{
+
     const response = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=games`, { next: { revalidate: 320 } });
-
     return response.json();
-
 
   }catch(err){
     console.log(err);
   }
 }
+
 export default async function Home() {
 
   const dalyGame: GameProps = await getDalyGame();
   const data: GameProps[] = await getGamaData();
 
-  return (
+  return ( 
     <main className="w-full">
       <Container>
         <h1 className="text-center font-bold text-xl mt-8 mb-5">Sepramos um jogo exclusico pra voce</h1>
@@ -52,7 +53,6 @@ export default async function Home() {
                 alt={dalyGame.title}
                 priority={true}
                 quality={100}
-
                 fill={true}
                 className="max-h-96 object-cover rounded-lg opacity-50 hover:opacity-100 transition-all duration-300"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
@@ -64,7 +64,7 @@ export default async function Home() {
         <Input/>
 
         <h2 className="text-lg font-bold mt-8 mb-5">Jogos para conhecer</h2>
-        <section className="grid gap-7 sm:grid-cols-2 md: grid-cols-3 lg:grid-cols-4">
+        <section className="grid gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {data.map((item) => {
             return(
               <GameCard key={item.id} data={item}/>
